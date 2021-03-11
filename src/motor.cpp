@@ -2,6 +2,7 @@
 #include <utility.h>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 // Calculate electrical power output of the armature
 bool Motor::calcArmaturePower() 
@@ -64,7 +65,11 @@ bool Motor::calcLoadTorque()
 // Calculate acceleration torque
 bool Motor::calcAccelerationTorque() 
 {
-    // Need to find equation for this
+    Util::Vec3D momentInertia {};
+    Util::Vec3D accel {};
+    Util::Vec3D AccelTorque {};
+
+    AccelTorque = Util::crossProd(momentInertia, accel);
 
     return false;
 }
