@@ -1,5 +1,4 @@
 #include <motor.h>
-#include <utility.h>
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -56,22 +55,23 @@ bool Motor::calcPowerOut()
 bool Motor::calcLoadTorque()
 {
     // Load Torque = mass * gravity * radius
-    if (loadTorque = mass * Util::GRAVITY * radius)
-        return true;
-    
-    return false;
+    loadTorque = mass * Util::GRAVITY * radius;
+
+    return true;
 }
 
 // Calculate acceleration torque
 bool Motor::calcAccelerationTorque() 
 {
-    Util::Vec3D momentInertia {};
-    Util::Vec3D accel {};
-    Util::Vec3D AccelTorque {};
+    // T(Accel) = J (cross) A
 
-    AccelTorque = Util::crossProd(momentInertia, accel);
+    Util::Vec3D momentInertia {(1.0f/2.0f)*4426.61*std::pow(radius, 2), 0.0f, 0.0f};
+    Util::Vec3D accel {0.0f, 0.0f, -1.5f};
 
-    return false;
+    accelerationTorque = Util::crossProd(momentInertia, accel);
+    accelTorqueNormalized = Util::normalize(accelerationTorque);
+
+    return true;
 }
 
 // Calculate angular velocity of the spool that the motor is driving
@@ -86,10 +86,9 @@ bool Motor::calcAngularVelocity()
 // Calculte total torque that the motor needs to output
 bool Motor::calcTotalTorque()
 {
-    if (totalTorque = angularVelocity + accelerationTorque)
-        return true;
-
-    return false;
+    totalTorque = loadTorque + accelTorqueNormalized;
+    
+    return true;
 }
 
 // Check to see if the motor meets the safety requirement

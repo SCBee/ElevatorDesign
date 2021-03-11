@@ -24,6 +24,7 @@
 //      1) Motor should be able to drive at least 40% higher load/torque than normal operating load/torque
 //      2) Counterweight is 1840 kg
 
+#include <utility.h>
 
 class Motor
 {
@@ -38,13 +39,14 @@ class Motor
     // Mechanical Values (Calculated during operation)
     double totalTorque = 0.0f; // Nm, joules
     double loadTorque = 0.0f; // Nm, joules
-    double accelerationTorque = 0.0f; // Nm, joules
+    Util::Vec3D accelerationTorque {}; // Nm, joules
+    double accelTorqueNormalized = 0.0f;
     double angularVelocity = 0.0f; // rad/s
 
     // Mechanical Parameters (REQUIRED)
     double maxTorqueRating = 0.0f; // Nm, joules (Change this to the assumption)
     double normalOperatingTorque = 0.0f; // Nm, joules (Change this to the assumption)
-    double radius = 0.0f; // meters
+    double radius = 0.381f; // meters
     double idlerRadius = 0.0f; // meters
     double mass = 1840.0f; // kg ()
     double speed = 10.0f; // m/s
@@ -58,18 +60,7 @@ class Motor
 public:
 #pragma region CONSTRUCTORS
     // Constructors
-    Motor()
-    {
-        // Mechanical
-        radius = 0.0f;
-        mass = 0.0f;
-
-        // Electrical
-        voltage = 0.0f;
-        current = 0.0f;
-        resistance = 0.0f;
-        armatureVoltage = 0.0f;
-    }
+    Motor() {}
 
     Motor(double V, double I, double R, double e)
     {
@@ -92,7 +83,8 @@ public:
     double getLoadTorque(){ return loadTorque; }
     double getPowerIn(){ return powerIn; }
     double getPowerOut(){ return powerOut; }
-    double getAccelerationTorque(){ return accelerationTorque; }
+    double getAccelerationTorque(){ return accelTorqueNormalized; }
+    double getTotalTorque(){ return totalTorque; }
     double getAngularVelocity(){ return angularVelocity; }
 
     bool setVoltage(double V)

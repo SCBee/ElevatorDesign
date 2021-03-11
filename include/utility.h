@@ -15,6 +15,7 @@ namespace Util
 
     double dotProd(Vec3D A, Vec3D B);
     Vec3D crossProd(Vec3D A, Vec3D B);
+    double normalize(Vec3D A);
 }
 
 
