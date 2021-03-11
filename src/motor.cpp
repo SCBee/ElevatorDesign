@@ -65,7 +65,7 @@ bool Motor::calcAccelerationTorque()
 {
     // T(Accel) = J (cross) A
 
-    Util::Vec3D momentInertia {(1.0f/2.0f)*4426.61*std::pow(radius, 2), 0.0f, 0.0f};
+    Util::Vec3D momentInertia {(0.50f)*4426.61*std::pow(radius, 2), 0.0f, 0.0f};
     Util::Vec3D accel {0.0f, 0.0f, -1.5f};
 
     accelerationTorque = Util::crossProd(momentInertia, accel);

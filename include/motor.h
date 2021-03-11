@@ -48,7 +48,7 @@ class Motor
     double normalOperatingTorque = 0.0f; // Nm, joules (Change this to the assumption)
     double radius = 0.381f; // meters
     double idlerRadius = 0.0f; // meters
-    double mass = 1840.0f; // kg ()
+    double mass = 960.0f; // kg ()
     double speed = 10.0f; // m/s
 
     // Electrical Parameters (REQUIRED)
